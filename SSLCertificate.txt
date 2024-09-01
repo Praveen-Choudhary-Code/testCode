@@ -1,0 +1,43 @@
+# /etc/httpd/conf.d/secure.conf
+<VirtualHost *:8080>
+    ServerName iforward.com
+ # Replace with your hostname
+# Variables (update these paths and filenames accordingly)
+    SSLEngine on
+  SSLCertificateFile /etc/httpd/ssl/private.crt
+
+# Replace with your certificate file path
+
+    SSLCertificateKeyFile /etc/httpd/ssl/public.key
+# Replace with your certificate key file path
+
+    SSLCertificateChainFile /etc/httpd/ssl/request.crs
+# Optional: replace with your certificate chain file path
+
+    SSLProtocol all -SSLv2 -SSLv3
+    SSLCipherSuite HIGH:!aNULL:!MD5
+
+    ProxyRequests Off
+    ProxyPreserveHost On
+
+    <Proxy *>
+        Require all granted
+    </Proxy>
+
+    ProxyPass / http://backend_server/
+
+ # Replace with your backend server URL
+
+    ProxyPassReverse / http://backend_server/
+
+    ErrorLog /var/log/httpd/secure_error.log
+    CustomLog /var/log/httpd/secure_access.log combined
+</VirtualHost>
+
+<VirtualHost *:8080>
+    ServerName iforward.com
+
+ # Replace with your hostname
+
+    Redirect permanent / https://iforward.com/
+</VirtualHost>
