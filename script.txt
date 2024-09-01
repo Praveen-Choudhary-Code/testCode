@@ -1,4 +1,6 @@
-# #!/bin/bash
+#yum repository with mount the redhat iso dvd 
+#!/bin/bash
+
 # Define the directory path and device
 DIR="/qqq"
 DEVICE="/dev/sr0"
